@@ -33,44 +33,32 @@ fun Application.configureDatabase() {
 fun initFeats(file:String)
 {
     val gson = Gson()
-    val feats = gson.fromJson(File(file).readText(), Array<Feat>::class.java)
+    val featStorage = gson.fromJson(File(file).readText(), Array<Feat>::class.java)
 
     runBlocking {
         featCollection.deleteMany()
-        feats.forEach {
-            launch {
-                featCollection.insertOne(it)
-            }
-        }
+        featCollection.insertMany(featStorage.toList())
     }
 }
 
 fun initClasses(file:String)
 {
     val gson = Gson()
-    val feats = gson.fromJson(File(file).readText(), Array<PClass>::class.java)
+    val classStorage = gson.fromJson(File(file).readText(), Array<PClass>::class.java)
 
     runBlocking {
         classCollection.deleteMany()
-        feats.forEach {
-            launch {
-                classCollection.insertOne(it)
-            }
-        }
+        classCollection.insertMany(classStorage.toList())
     }
 }
 
 fun initRaces(file:String)
 {
     val gson = Gson()
-    val feats = gson.fromJson(File(file).readText(), Array<Race>::class.java)
+    val raceStorage = gson.fromJson(File(file).readText(), Array<Race>::class.java)
 
     runBlocking {
         raceCollection.deleteMany()
-        feats.forEach {
-            launch {
-                raceCollection.insertOne(it)
-            }
-        }
+        raceCollection.insertMany(raceStorage.toList())
     }
 }
