@@ -1,0 +1,1 @@
+web: ./build/install/com.example.p1eapi/bin/com.example.p1eapi
