@@ -6,12 +6,12 @@ import io.ktor.server.routing.*
 import org.litote.kmongo.eq
 
 fun Route.raceRouting() {
-    route("/racesReference"){
+    route("/raceReference"){
         get{
             call.respond(raceCollection.find().toList().map { it->it.name })
         }
     }
-    route("/races") {
+    route("/race") {
         get {
             call.respond(raceCollection.find().toList())
         }

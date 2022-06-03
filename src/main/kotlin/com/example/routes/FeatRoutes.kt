@@ -6,12 +6,12 @@ import io.ktor.server.routing.*
 import org.litote.kmongo.eq
 
 fun Route.featsRouting() {
-    route("/featsReference"){
+    route("/featReference"){
         get{
             call.respond(featCollection.find().toList().map { it->it.name })
         }
     }
-    route("/feats") {
+    route("/feat") {
         get {
             call.respond(featCollection.find().toList())
         }

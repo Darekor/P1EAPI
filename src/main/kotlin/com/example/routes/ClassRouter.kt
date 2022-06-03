@@ -11,7 +11,7 @@ fun Route.classRouting() {
             call.respond(classCollection.find().toList().map { it->it.name })
         }
     }
-    route("/classes") {
+    route("/class") {
         get {
             call.respond(classCollection.find().toList())
         }
