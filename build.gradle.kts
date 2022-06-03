@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation ("com.google.code.gson:gson:2.9.0")
     implementation("org.litote.kmongo:kmongo-coroutine:$kmongo_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
