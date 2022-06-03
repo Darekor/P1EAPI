@@ -17,7 +17,7 @@ lateinit var raceCollection: CoroutineCollection<Race>
 fun Application.configureDatabase() {
 
     val connectionString: ConnectionString? = System.getenv("MONGODB_URI")?.let {
-        ConnectionString("$it?retryWrites=false")
+        ConnectionString(it)
     }
     val client = if (connectionString != null) KMongo.createClient(connectionString).coroutine else KMongo.createClient().coroutine
     val database = client.getDatabase(connectionString?.database ?: "p1e_data")
