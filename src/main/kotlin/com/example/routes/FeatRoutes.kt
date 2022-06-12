@@ -1,9 +1,9 @@
-import com.example.models.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.litote.kmongo.eq
+import com.parser.types.*
 
 fun Route.featsRouting() {
     route("/featReference"){

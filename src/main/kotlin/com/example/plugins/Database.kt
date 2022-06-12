@@ -1,17 +1,16 @@
-import com.example.models.*
-import com.google.gson.Gson
 import com.mongodb.ConnectionString
 import io.ktor.server.application.*
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
-import java.io.File
+
+import com.parser.types.*
 
 lateinit var featCollection: CoroutineCollection<Feat>
 lateinit var classCollection: CoroutineCollection<PClass>
 lateinit var raceCollection: CoroutineCollection<Race>
+
 
 
 fun Application.configureDatabase() {
@@ -24,41 +23,35 @@ fun Application.configureDatabase() {
     featCollection = database.getCollection<Feat>()
     classCollection = database.getCollection<PClass>()
     raceCollection = database.getCollection<Race>()
-
-    initFeats("feats.json")
-    initClasses("classes.json")
-    initRaces("races.json")
     }
 
-fun initFeats(file:String)
+fun updateDB()
 {
-    val gson = Gson()
-    val featStorage = gson.fromJson(File(file).readText(), Array<Feat>::class.java)
+    initFeats(collectFeatsInfo())
+    initClasses(collectClassesInfo())
+    initRaces(collectRacesInfo())
+}
 
+fun initFeats(FeatList:List<Feat>)
+{
     runBlocking {
         featCollection.deleteMany()
-        featCollection.insertMany(featStorage.toList())
+        featCollection.insertMany(FeatList)
     }
 }
 
-fun initClasses(file:String)
+fun initClasses(ClassList:List<PClass>)
 {
-    val gson = Gson()
-    val classStorage = gson.fromJson(File(file).readText(), Array<PClass>::class.java)
-
     runBlocking {
         classCollection.deleteMany()
-        classCollection.insertMany(classStorage.toList())
+        classCollection.insertMany(ClassList)
     }
 }
 
-fun initRaces(file:String)
+fun initRaces(RacesList:List<Race>)
 {
-    val gson = Gson()
-    val raceStorage = gson.fromJson(File(file).readText(), Array<Race>::class.java)
-
     runBlocking {
         raceCollection.deleteMany()
-        raceCollection.insertMany(raceStorage.toList())
+        raceCollection.insertMany(RacesList)
     }
 }

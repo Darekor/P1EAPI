@@ -1,9 +1,9 @@
-import com.example.models.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.litote.kmongo.eq
+import com.parser.types.*
 
 fun Route.classRouting() {
     route("/classReference"){
@@ -20,7 +20,7 @@ fun Route.classRouting() {
                 "Missing name",
                 status = HttpStatusCode.BadRequest
             )
-            val pclass = classCollection.findOne(Feat::name eq name)?: return@get call.respondText(
+            val pclass = classCollection.findOne(PClass::name eq name)?: return@get call.respondText(
                 "No class with name $name",
                 status = HttpStatusCode.NotFound
             )

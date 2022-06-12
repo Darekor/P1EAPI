@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jsoup:jsoup:1.14.3")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation ("com.google.code.gson:gson:2.9.0")
     implementation("org.litote.kmongo:kmongo-coroutine:$kmongo_version")

@@ -1,9 +1,10 @@
-import com.example.models.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.litote.kmongo.eq
+
+import com.parser.types.*
 
 fun Route.raceRouting() {
     route("/raceReference"){
@@ -20,7 +21,7 @@ fun Route.raceRouting() {
                 "Missing name",
                 status = HttpStatusCode.BadRequest
             )
-            val race = raceCollection.findOne(Feat::name eq name)?: return@get call.respondText(
+            val race = raceCollection.findOne(Race::name eq name)?: return@get call.respondText(
                 "No race with name $name",
                 status = HttpStatusCode.NotFound
             )
