@@ -115,7 +115,7 @@ fun scrapeFeatPage(url: String) : List<Feat> {
        return featPage.select("ul.ogn-childpages li a")
            .parallelStream()
            .map{ scrapeFeat(it.attr("href"))}
-           .toList()
+           .collect(Collectors.toList())
            .mapNotNull { it }
     }
     else if (featPage.select("tr th:contains(feat)").isNotEmpty())
