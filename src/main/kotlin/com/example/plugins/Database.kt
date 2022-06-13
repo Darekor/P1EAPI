@@ -5,7 +5,12 @@ import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
+import java.util.*
+import kotlin.concurrent.schedule
+
 import com.parser.types.*
+import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.scheduleAtFixedRate
 
 lateinit var featCollection: CoroutineCollection<Feat>
 lateinit var classCollection: CoroutineCollection<PClass>
@@ -23,6 +28,9 @@ fun Application.configureDatabase() {
     featCollection = database.getCollection<Feat>()
     classCollection = database.getCollection<PClass>()
     raceCollection = database.getCollection<Race>()
+
+    Timer().scheduleAtFixedRate(0,302400000){
+        updateDB()}
     }
 
 fun updateDB()
@@ -39,6 +47,7 @@ fun initFeats(FeatList:List<Feat>)
         featCollection.insertMany(FeatList)
     }
 }
+
 
 fun initClasses(ClassList:List<PClass>)
 {
