@@ -13,7 +13,7 @@ fun Route.featsRouting() {
     }
     route("/feat") {
         get {
-            call.respond(featCollection.find().toList())
+            call.respond(featCollection.find().toList().take(50))
         }
         get("{name?}") {
             val name= call.parameters["name"] ?: return@get call.respondText(
