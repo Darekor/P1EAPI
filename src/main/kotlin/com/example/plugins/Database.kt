@@ -6,17 +6,15 @@ import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
 import java.util.*
-import kotlin.concurrent.schedule
 
 import com.parser.types.*
-import kotlin.concurrent.fixedRateTimer
 import kotlin.concurrent.scheduleAtFixedRate
 
 lateinit var featCollection: CoroutineCollection<Feat>
 lateinit var classCollection: CoroutineCollection<PClass>
 lateinit var raceCollection: CoroutineCollection<Race>
 
-
+val featContainer: List<Feat> = collectFeatsInfo()
 
 fun Application.configureDatabase() {
 

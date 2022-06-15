@@ -5,6 +5,7 @@ import io.ktor.server.routing.*
 import org.litote.kmongo.eq
 import com.parser.types.*
 
+
 fun Route.featsRouting() {
     route("/featReference"){
         get{
@@ -13,7 +14,7 @@ fun Route.featsRouting() {
     }
     route("/feat") {
         get {
-            call.respond(featCollection.find().toList().take(50))
+            call.respond(featContainer)
         }
         get("{name?}") {
             val name= call.parameters["name"] ?: return@get call.respondText(
