@@ -71,10 +71,14 @@ fun raceFromData(raceData: Document, raceName:String = ""):Race {
                     it.select("li").forEach{
                         val features = """<b>(.*?)</b>:?(.*)""".toRegex().matchEntire(it.html())?.groupValues
                         if (features != null) {
-                          baseFeatures.add(RacialFeature(Jsoup.parse(features[1]).text(), mapOf(),Jsoup.parse(features[2]).text(), listOf(),FeatureTypes.RCL))
+                            if (features[1].contains("speed",true))
+                                baseFeatures.add(RacialFeature("Base Speed", mapOf(),Jsoup.parse(features[2]).text(), listOf(),FeatureTypes.RCL))
+                            else if (features[1].contains("size",true))
+                                features[2].findAnyOf(listOf("Large","Medium","Small"),0,true)?.second?.let {
+                                    baseFeatures.add(RacialFeature(Jsoup.parse(features[1]).text(), mapOf(),it, listOf(),FeatureTypes.RCL)) }
+                            else
+                                baseFeatures.add(RacialFeature(Jsoup.parse(features[1]).text(), mapOf(),Jsoup.parse(features[2]).text(), listOf(),FeatureTypes.RCL))
                         }
-                        //val featureSplit = it.text().split(':')
-                        //baseFeatures.add(RacialFeature(featureSplit[0], mapOf(),featureSplit[1]))
                     }
                 (it.text().startsWith("Alternate Racial Traits"))->
                     it.select("li").forEach{val features = """<b>(.*?)</b>:?(.*)""".toRegex().matchEntire(it.html())?.groupValues
