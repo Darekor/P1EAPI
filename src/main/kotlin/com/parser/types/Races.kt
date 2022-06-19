@@ -72,7 +72,7 @@ fun raceFromData(raceData: Document, raceName:String = ""):Race {
                         val features = """<b>(.*?)</b>:?(.*)""".toRegex().matchEntire(it.html())?.groupValues
                         if (features != null) {
                             if (features[1].contains("speed",true))
-                                baseFeatures.add(RacialFeature("Base Speed", mapOf(),Jsoup.parse(features[2]).text(), listOf(),FeatureTypes.RCL))
+                                baseFeatures.add(RacialFeature("Base Speed", mapOf(),"\\d+".toRegex().find(Jsoup.parse(features[2]).text())?.value?:Jsoup.parse(features[2]).text(), listOf(),FeatureTypes.RCL))
                             else if (features[1].contains("size",true))
                                 features[2].findAnyOf(listOf("Large","Medium","Small"),0,true)?.second?.let {
                                     baseFeatures.add(RacialFeature(Jsoup.parse(features[1]).text(), mapOf(),it, listOf(),FeatureTypes.RCL)) }
