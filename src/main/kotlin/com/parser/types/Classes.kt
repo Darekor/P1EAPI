@@ -145,6 +145,14 @@ fun classFromPage(classPage: Document): PClass {
             t?.let {
                 "are (.*?)\\.".toRegex().find(it.text())?.groupValues?.get(1)?.let {
                     skills = it.toString().split(",", " and").filter { it.isNotEmpty() }.toMutableList()
+                    skills = skills.map{
+                        it.trim().substring(0,it.lastIndexOf(" ")).trim()
+                    }.toMutableList()
+                    if (skills.indexOf("Knowledge (all)")!=-1)
+                    {
+                        skills.remove("Knowledge (all)")
+                        skills.addAll(listOf("Knowledge (arcana)","Knowledge (dungeoneering)","Knowledge (engineering)","Knowledge (geography)","Knowledge (history)","Knowledge (local)","Knowledge (nature)","Knowledge (nobility)","Knowledge (planes)","Knowledge (religion)"))
+                    }
                 }
             }
             t=t?.nextElementSibling()
