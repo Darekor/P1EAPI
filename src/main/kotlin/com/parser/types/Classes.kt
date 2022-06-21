@@ -99,7 +99,7 @@ fun classFromPage(classPage: Document): PClass {
         }
 
     //BaB, saves
-    val ct = classTable?.select("tbody tr:eq(2)")?.first()?.let {
+    classTable?.select("tbody tr td:contains(3rd)")?.parents()?.first()?.let{
        //Bab
         when(it.select("td:eq(1)").first()?.text()?.toIntOrNull())
         {
@@ -113,7 +113,7 @@ fun classFromPage(classPage: Document): PClass {
             when(it.select("td:eq(${i+2})").first()?.text()?.toIntOrNull())
             {
                 1 -> saves[i] = BonusCategory.OT
-                3 -> saves[i] = BonusCategory.TH
+                3 -> saves[i] = BonusCategory.HF
             }
         }
     }
@@ -121,7 +121,7 @@ fun classFromPage(classPage: Document): PClass {
     //Description, hitdie, starting wealth, skills, skillpoints
     classData.html().split("(?=(<h\\d.*?>.*?</h\\d>))".toRegex()).forEach{
         //Description, hitdie, wealth
-        if (!it.contains("<h\\d.*?>.*?</h\\d>".toRegex()))
+        if (it.contains("<h\\d.*?>$name</h\\d>".toRegex()))
         {
             Jsoup.parse(it, "", Parser.xmlParser()).children().forEach {
                 if (it.tagName()=="p")
