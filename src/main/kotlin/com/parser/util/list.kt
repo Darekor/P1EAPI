@@ -11,6 +11,7 @@ fun collectFeatsInfo():List<Feat> {
         .select("h4 [id$=Feats] a[href]")
         .mapNotNull{ scrapeFeatPage(it.attr("href"))}
         .flatten()
+        .distinctBy{it.name}
 }
 
 fun collectRacesInfo():List<Race> {
